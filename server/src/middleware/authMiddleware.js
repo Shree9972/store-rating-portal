@@ -43,7 +43,7 @@ const authorize = (...allowedRoles) => {
       });
     }
 
-    //check if he has permission to do a particular task
+    //if not permissn then 
     if (!allowedRoles.includes(req.user.role)) {
       return res.status(403).json({
         success: false,

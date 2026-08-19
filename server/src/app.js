@@ -14,6 +14,9 @@ const testRoutes = require("./routes/testRoutes");
 
 const authRoutes = require("./routes/authRoutes");
 
+//user related rouets 
+const userRoutes = require("./routes/userRoutes");
+
 
 //All middlwares here 
 
@@ -44,6 +47,8 @@ app.use((req, res, next) => {
 app.use("/api/test", testRoutes);
 
 app.use("/api/auth",authRoutes);
+
+app.use("/api/users", userRoutes);
 
 //starting route to check 
 app.get("/", (req, res) => {
