@@ -1,7 +1,13 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
+//get context info here
 import { AuthProvider } from "./context/AuthContext";
+
+//get pages here
 import Login from "./pages/Login";
+import Register from "./pages/Register";
+
+//get the protected route to verify from here
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 const Unauthorized = () => (
@@ -24,6 +30,7 @@ const App = () => {
         <Routes>
 
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
           <Route path="/unauthorized" element={<Unauthorized />} />
 
