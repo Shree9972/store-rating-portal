@@ -76,8 +76,35 @@ const deleteUserController = async (req, res) => {
     }
 };
 
+
+const getUserByIdController = async (req, res) => {
+
+    try 
+    {
+        const user = await userService.getUserById(req.params.id);
+
+        return res.status(200).json({
+            
+        success: true,
+        data: { user }
+
+        });
+
+    } 
+    catch (error) 
+    {
+        console.error("Get user details error:", error.message);
+
+        return res.status(error.statusCode || 500).json({
+        success: false,
+        message: error.statusCode ? error.message : "Failed to get user details"
+        });
+    }
+};
+
 module.exports = {
     getUsersController,
     createUserController,
     deleteUserController,
+    getUserByIdController,
 }

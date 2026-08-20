@@ -106,8 +106,71 @@ const deleteUser = async (userId) => {
     };
 };
 
+
+//get user details here and only admins can see it 
+//with detailed page
+const getUserById = async (userId) => {
+
+    const [users] = await db.query(
+        `SELECT id, name, email, address, role, created_at, updated_at FROM users WHERE id = ?`,
+        [userId]
+    );
+
+    if(users.length === 0) 
+    {
+        const error = new Error("User not found");
+        error.statusCode = 404;
+        throw error;
+    }
+
+    const user = users[0];
+
+    //check if he is owner thne we will pass the owner wiht his stores int it
+
+    if(user.role === "owner")
+    {
+        const [stores] = await db.query(
+
+            `SELECT s.id, s.name, s.email, s.address,
+            
+                COALESCE(AVG(r.rating), 0) AS average_rating,
+                COUNT(r.id) AS total_ratings FROM stores s
+
+            LEFT JOIN ratings r ON s.id = r.store_id
+
+            WHERE s.owner_id = ?
+
+            GROUP BY s.id, s.name, s.email, s.address
+
+            ORDER BY s.name ASC`,
+
+            [userId]
+            
+        );
+
+        return {
+
+            ...user,
+
+            stores: stores.map((store) => ({
+
+                id: store.id,
+                name: store.name,
+                email: store.email,
+                address: store.address,
+                averageRating: Number(Number(store.average_rating).toFixed(2)),
+                totalRatings: Number(store.total_ratings)
+
+            }))
+        };
+    }
+
+  return { ...user, stores: [] };
+};
+
 module.exports = {
     getUsers,
     createUser,
     deleteUser,
+    getUserById,
 }
