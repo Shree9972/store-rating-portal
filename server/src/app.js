@@ -26,6 +26,9 @@ const ratingRoutes = require("./routes/ratingRoutes");
 //only dashboard routes of three users types
 const dashboardRoutes = require("./routes/dashboardRoutes");
 
+//this is of listing of stores with give field
+const userStoreRoutes = require("./routes/userStoreRoutes");
+
 
 //All middlwares here 
 
@@ -64,6 +67,8 @@ app.use("/api/stores", storeRoutes);
 app.use("/api/ratings", ratingRoutes);
 
 app.use("/api/dashboard", dashboardRoutes);
+
+app.use("/api/user-stores", userStoreRoutes);
 
 //starting route to check 
 app.get("/", (req, res) => {
