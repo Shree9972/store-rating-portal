@@ -88,4 +88,53 @@ const getStoresByOwner = async (ownerId) => {
     return stores;
 };
 
-module.exports = { createStore, getStores, getStoresByOwner };
+
+const getStoreById = async ({ storeId, userId }) => {
+
+    const [stores] = await db.query(
+        `SELECT s.id, s.name, s.email, s.address, s.owner_id, s.created_at, s.updated_at, 
+        u.name AS owner_name, u.email AS owner_email 
+        FROM stores s INNER JOIN users u ON s.owner_id = u.id WHERE s.id = ?`,
+        [storeId]
+    );
+
+    if(stores.length === 0)
+    {
+        const error = new Error("Store not found");
+        error.statusCode = 404;
+        throw error;
+    }
+
+    const store = stores[0];
+
+    const [ratingSummary] = await db.query(
+        `SELECT COUNT(*) AS total_ratings, COALESCE(AVG(rating), 0) AS average_rating FROM ratings WHERE store_id = ?`,
+        [storeId]
+    );
+
+    let userRating = null;
+
+    if(userId) 
+    {
+        const [ratings] = await db.query(
+        `SELECT id, rating, created_at, updated_at FROM ratings WHERE store_id = ? AND user_id = ?`,
+        [storeId, userId]
+        );
+
+        if (ratings.length > 0) 
+        {
+            userRating = ratings[0];
+        }
+    }
+
+    return {
+        ...store,
+        ratingSummary: {
+        totalRatings: Number(ratingSummary[0].total_ratings),
+        averageRating: Number(Number(ratingSummary[0].average_rating).toFixed(2))
+        },
+        userRating
+    };
+};
+
+module.exports = { createStore, getStores, getStoresByOwner , getStoreById,};

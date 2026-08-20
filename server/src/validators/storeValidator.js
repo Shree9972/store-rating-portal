@@ -1,4 +1,4 @@
-const { body } = require("express-validator");
+const { body, param } = require("express-validator");
 
 const createStoreValidation = [
 
@@ -37,7 +37,13 @@ const createStoreValidation = [
         .withMessage("Owner ID must be a valid number"),
 ];
 
+const storeIdValidation = [
+  param("id")
+    .isInt({ min: 1 })
+    .withMessage("Store ID must be a valid number"),
+];
 
 module.exports = {
   createStoreValidation,
+  storeIdValidation,
 };

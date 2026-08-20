@@ -1,7 +1,7 @@
 const express = require("express");
 
-const { createStoreController, getStoresController, getMyStoresController } = require("../controllers/storeController");
-const { createStoreValidation } = require("../validators/storeValidator");
+const { createStoreController, getStoresController, getMyStoresController , getStoreByIdController, } = require("../controllers/storeController");
+const { createStoreValidation , storeIdValidation} = require("../validators/storeValidator");
 const { validateRequest } = require("../middleware/validationMiddleware");
 const { authenticate, authorize } = require("../middleware/authMiddleware");
 
@@ -15,5 +15,8 @@ router.post("/", authenticate, authorize("admin"), createStoreValidation, valida
 
 // owner can see his stores 
 router.get("/my-stores", authenticate, authorize("owner"), getMyStoresController);
+
+// store dashboard in one request
+router.get("/:id", authenticate, storeIdValidation, validateRequest, getStoreByIdController);
 
 module.exports = router;

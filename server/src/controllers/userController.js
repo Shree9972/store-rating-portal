@@ -52,7 +52,32 @@ const createUserController = async (req, res) => {
     }
 };
 
+//The user is to be deleted by admin only
+const deleteUserController = async (req, res) => {
+
+    try {
+
+        const result = await userService.deleteUser(req.params.id);
+
+        return res.status(200).json({
+            success: true,
+            message: result.message
+        });
+
+    } 
+    catch (error) 
+    {
+        console.error("Delete user error:", error.message);
+
+        return res.status(error.statusCode || 500).json({
+            success: false,
+            message: error.statusCode ? error.message : "Failed to delete user"
+        });
+    }
+};
+
 module.exports = {
     getUsersController,
     createUserController,
+    deleteUserController,
 }

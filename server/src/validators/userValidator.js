@@ -1,4 +1,4 @@
-const { body } = require("express-validator");
+const { body, param } = require("express-validator");
 
 const createUserValidation = [
 
@@ -40,6 +40,13 @@ const createUserValidation = [
         .withMessage( "Role must be admin, user, or owner" ),
 ];
 
+const userIdValidation = [
+  param("id")
+    .isInt({ min: 1 })
+    .withMessage("Store ID must be a valid number"),
+];
+
 module.exports = {
   createUserValidation,
+  userIdValidation,
 };

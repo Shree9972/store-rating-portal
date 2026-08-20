@@ -73,8 +73,40 @@ const createUser = async ({ name, email, password, address, role }) => {
     return users[0];
 };
 
+//deelete user from here by admisn on ly no user or can delete hismelf or owner
+const deleteUser = async (userId) => {
+
+    const [users] = await db.query(
+        `SELECT id, role FROM users WHERE id = ?`,
+        [userId]
+    );
+
+    if(users.length === 0) 
+    {
+        const error = new Error("User not found");
+        error.statusCode = 404;
+        throw error;
+    }
+
+    if(users[0].role === "admin") 
+    {
+        const error = new Error("Admin users cannot be deleted");
+        error.statusCode = 400;
+        throw error;
+    }
+
+    await db.query(
+        `DELETE FROM users WHERE id = ?`,
+        [userId]
+    );
+
+    return {
+        message: "User deleted successfully"
+    };
+};
 
 module.exports = {
     getUsers,
     createUser,
+    deleteUser,
 }

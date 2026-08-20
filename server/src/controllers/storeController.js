@@ -69,4 +69,31 @@ const getMyStoresController = async (req, res) => {
     }
 };
 
-module.exports = { createStoreController, getStoresController, getMyStoresController };
+
+const getStoreByIdController = async (req, res) => {
+
+    try {
+
+        const store = await storeService.getStoreById({
+        storeId: req.params.id,
+        userId: req.user.id
+        });
+
+        return res.status(200).json({
+        success: true,
+        data: { store }
+        });
+        
+    } 
+    catch (error) 
+    {
+        console.error("Get store details error:", error.message);
+
+        return res.status(error.statusCode || 500).json({
+        success: false,
+        message: error.statusCode ? error.message : "Failed to get store"
+        });
+    }
+};
+
+module.exports = { createStoreController, getStoresController, getMyStoresController , getStoreByIdController ,};
