@@ -4,8 +4,10 @@ const { db } = require("../config/database");
 //sorting is for user preference only 
 const getStoresForUser = async ({ userId, search, sortBy = "name", sortOrder = "ASC" }) => {
 
+    //only these fields are allowed to apply on sort 
     const allowedSortFields = { name: "s.name", address: "s.address", average_rating: "average_rating" };
 
+    //if no sort field then we will use by default s.name for this 
     const sortColumn = allowedSortFields[sortBy] || "s.name";
 
     const order = sortOrder.toUpperCase() === "DESC" ? "DESC" : "ASC";
