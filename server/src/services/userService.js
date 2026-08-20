@@ -38,6 +38,7 @@ const getUsers = async ({ search, role, sortBy = "created_at", sortOrder = "DESC
     return users;
 };
 
+//create the user with specific role and only admin can do this
 const createUser = async ({ name, email, password, address, role }) => {
 
     const allowedRoles = ["admin", "user", "owner"];

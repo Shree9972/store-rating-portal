@@ -23,6 +23,9 @@ const storeRoutes = require("./routes/storeRoutes");
 //rating related rouets created here
 const ratingRoutes = require("./routes/ratingRoutes");
 
+//only dashboard routes of three users types
+const dashboardRoutes = require("./routes/dashboardRoutes");
+
 
 //All middlwares here 
 
@@ -59,6 +62,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/stores", storeRoutes);
 
 app.use("/api/ratings", ratingRoutes);
+
+app.use("/api/dashboard", dashboardRoutes);
 
 //starting route to check 
 app.get("/", (req, res) => {
