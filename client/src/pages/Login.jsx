@@ -70,6 +70,8 @@ const Login = () => {
         }
     };
 
+    
+
     return (
         <div className="login-page">
             <div className="login-card">
@@ -118,6 +120,18 @@ const Login = () => {
                         {loading ? "Logging in..." : "Login"}
                     </button>
                 </form>
+
+                <p className="login-register-text">
+                    Don't have an account?{" "}
+                    <button
+                        type="button"
+                        className="login-register-link"
+                        onClick={() => navigate("/register")}
+                    >
+                        Register as a user
+                    </button>
+                </p>
+
             </div>
         </div>
     );
