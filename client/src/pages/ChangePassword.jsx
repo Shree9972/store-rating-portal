@@ -29,18 +29,16 @@ const ChangePassword = () => {
         setMessage("");
         setError("");
 
-        if (
-        !formData.currentPassword ||
-        !formData.newPassword ||
-        !formData.confirmPassword
-        ) {
-        setError("All fields are required");
-        return;
+        if(!formData.currentPassword || !formData.newPassword || !formData.confirmPassword)
+        {
+            setError("All fields are required");
+            return;
         }
 
-        if (formData.newPassword !== formData.confirmPassword) {
-        setError("New passwords do not match");
-        return;
+        if(formData.newPassword !== formData.confirmPassword) 
+        {
+            setError("New passwords do not match");
+            return;
         }
 
         try {

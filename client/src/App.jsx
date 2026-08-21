@@ -16,6 +16,12 @@ import Navbar from "./components/Navbar";
 //admin pages and admin functionality here
 import AdminDashboard from "./pages/admin/AdminDashboard";
 
+import AdminUsers from "./pages/admin/AdminUsers";
+
+import AdminUserDetails from "./pages/admin/AdminUserDetails";
+
+import CreateUser from "./pages/admin/CreateUser";
+
 //get the protected route to verify from here
 import ProtectedRoute from "./routes/ProtectedRoute";
 
@@ -49,7 +55,15 @@ const App = () => {
           <Route path="/unauthorized" element={<Unauthorized />} />
 
           <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+            <Route path="/admin/users" element={<AdminUsers />} />
+
+            <Route path="/admin/users/:userId" element={<AdminUserDetails />} />
+
+            <Route path="/admin/users/create" element={<CreateUser />} />
+
           </Route>
 
           <Route element={<ProtectedRoute allowedRoles={["owner"]} />}>
