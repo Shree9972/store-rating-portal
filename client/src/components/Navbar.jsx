@@ -1,13 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import "./styles/Navbar.css";
 
 const Navbar = () => {
-
     const { user, logout } = useAuth();
     const navigate = useNavigate();
 
-    if(!user) 
-    {
+    if (!user) {
         return null;
     }
 
@@ -17,18 +16,19 @@ const Navbar = () => {
     };
 
     return (
-
-        <nav>
-            <div>
-                <Link to="/">Store Rating Platform</Link>
+        <nav className="navbar">
+            <div className="navbar-brand">
+                <Link to="/">
+                    Store Rating Platform
+                </Link>
             </div>
 
-            <div>
-                <span>
+            <div className="navbar-links">
+                <span className="navbar-welcome">
                     Welcome, {user.name}
                 </span>
 
-                <span>
+                <span className="navbar-role">
                     Role: {user.role}
                 </span>
 
@@ -54,7 +54,10 @@ const Navbar = () => {
                     Change Password
                 </Link>
 
-                <button onClick={handleLogout}>
+                <button
+                    className="navbar-logout"
+                    onClick={handleLogout}
+                >
                     Logout
                 </button>
             </div>

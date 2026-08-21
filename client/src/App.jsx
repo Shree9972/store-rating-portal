@@ -3,6 +3,9 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 //get context info here
 import { AuthProvider } from "./context/AuthContext";
 
+//Unauthorised page styling 
+import "./styles/Unauthorized.css";
+
 //get pages here (for all)
 import Login from "./pages/Login";
 
@@ -43,15 +46,13 @@ import RateStore from "./pages/user/RateStore";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 const Unauthorized = () => (
+    <div className="unauthorized-page">
+        <div className="unauthorized-card">
+            <h1>403</h1>
 
-  <div>
-
-      <h1>403</h1>
-
-      <p>You do not have permission to access this page.</p>
-
-  </div>
-
+            <p>You do not have permission to access this page.</p>
+        </div>
+    </div>
 );
 
 const App = () => {

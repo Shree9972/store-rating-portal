@@ -1,15 +1,18 @@
 import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import "./styles/Login.css";
 
 const Login = () => {
-
     const { login, user } = useAuth();
-
 
     const navigate = useNavigate();
 
-    const [formData, setFormData] = useState({ email: "", password: "" });
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+    });
+
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -20,29 +23,29 @@ const Login = () => {
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setFormData((previous) => ({ ...previous, [name]: value }));
+
+        setFormData((previous) => ({
+            ...previous,
+            [name]: value,
+        }));
     };
 
     const handleSubmit = async (event) => {
-
         event.preventDefault();
         setError("");
 
-        if (!formData.email || !formData.password) 
-        {
+        if (!formData.email || !formData.password) {
             setError("Email and password are required");
             return;
         }
 
-        try 
-        {
+        try {
             setLoading(true);
 
             //cakll the login functionality form here
             const response = await login(formData);
 
-            if(!response.success) 
-            {
+            if (!response.success) {
                 setError(response.message || "Login failed");
                 return;
             }
@@ -50,76 +53,72 @@ const Login = () => {
             const role = response.data.user.role;
 
             //change the dashboard according to the role we have 
-            if(role === "admin") 
-            {
+            if (role === "admin") {
                 navigate("/admin/dashboard");
-
-            } 
-            else if(role === "owner") 
-            {
+            } else if (role === "owner") {
                 navigate("/owner/dashboard");
-
-            } 
-            else 
-            {
+            } else {
                 navigate("/stores");
             }
-
-        } 
-        catch (error) 
-        {
+        } catch (error) {
             setError(
-                error.response?.data?.message || "Unable to login. Please try again."
+                error.response?.data?.message ||
+                "Unable to login. Please try again."
             );
-        } 
-        finally 
-        {
+        } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div>
-            <h1>Login</h1>
+        <div className="login-page">
+            <div className="login-card">
+                <h1>Login</h1>
 
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="email">Email</label>
+                <p className="login-subtitle">
+                    Sign in to your account
+                </p>
 
-                    <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
+                <form onSubmit={handleSubmit}>
+                    <div className="login-field">
+                        <label htmlFor="email">Email</label>
 
-                </div>
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
+                    </div>
 
-                <div>
-                    <label htmlFor="password">Password</label>
+                    <div className="login-field">
+                        <label htmlFor="password">Password</label>
 
-                    <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                    />
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                        />
+                    </div>
 
-                </div>
+                    {error && (
+                        <p className="login-error">
+                            {error}
+                        </p>
+                    )}
 
-                {error && <p>{error}</p>}
-
-                <button type="submit" disabled={loading}>
-
-                    {loading ? "Logging in..." : "Login"}
-
-                </button>
-
-
-            </form>
-
+                    <button
+                        className="login-button"
+                        type="submit"
+                        disabled={loading}
+                    >
+                        {loading ? "Logging in..." : "Login"}
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };
