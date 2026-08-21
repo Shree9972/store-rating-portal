@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+
 import adminApi from "../../api/adminApi";
+import "./styles/AdminUserDetails.css";
 
 const AdminUserDetails = () => {
-
     const { userId } = useParams();
 
     const [user, setUser] = useState(null);
@@ -11,11 +12,8 @@ const AdminUserDetails = () => {
     const [error, setError] = useState("");
 
     useEffect(() => {
-
         const loadUser = async () => {
-
-            try 
-            {
+            try {
                 setLoading(true);
                 setError("");
 
@@ -23,133 +21,161 @@ const AdminUserDetails = () => {
 
                 console.log(response);
 
-                if(response.success)
-                {
+                if (response.success) {
                     setUser(response.data.user);
-                } 
-                else 
-                {
-                    setError( response.message || "Unable to load user");
+                } else {
+                    setError(
+                        response.message || "Unable to load user"
+                    );
                 }
-            } 
-            catch (error) 
-            {
-                setError( error.response?.data?.message ||  "Unable to load user" );
-            } 
-            finally 
-            {
+            } catch (error) {
+                setError(
+                    error.response?.data?.message ||
+                        "Unable to load user"
+                );
+            } finally {
                 setLoading(false);
             }
-
         };
 
         loadUser();
-
     }, [userId]);
 
-    if(loading) 
-    {
-        return <div>Loading user...</div>;
-    }
-
-    if(error) 
-    {
+    if (loading) {
         return (
-        <div>
-            <p>{error}</p>
-
-            <Link to="/admin/users">
-                Back to Users
-            </Link>
-        </div>
+            <div className="admin-user-page">
+                <div className="admin-user-container">
+                    <div className="admin-user-message">
+                        Loading user...
+                    </div>
+                </div>
+            </div>
         );
     }
 
-    if (!user) 
-    {
+    if (error) {
         return (
-        <div>
-            <p>User not found.</p>
+            <div className="admin-user-page">
+                <div className="admin-user-container">
+                    <div className="admin-user-message error">
+                        <p>{error}</p>
 
-            <Link to="/admin/users">
-                Back to Users
-            </Link>
-        </div>
+                        <Link
+                            className="admin-user-back"
+                            to="/admin/users"
+                        >
+                            ← Back to Users
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (!user) {
+        return (
+            <div className="admin-user-page">
+                <div className="admin-user-container">
+                    <div className="admin-user-message">
+                        <p>User not found.</p>
+
+                        <Link
+                            className="admin-user-back"
+                            to="/admin/users"
+                        >
+                            ← Back to Users
+                        </Link>
+                    </div>
+                </div>
+            </div>
         );
     }
 
     return (
+        <div className="admin-user-page">
+            <div className="admin-user-container">
+                <Link
+                    className="admin-user-back"
+                    to="/admin/users"
+                >
+                    ← Back to Users
+                </Link>
 
-        <div>
+                <header className="admin-user-header">
+                    <p>User Management</p>
+                    <h1>User Details</h1>
+                    <span>
+                        View the user's account information and stores.
+                    </span>
+                </header>
 
-            <h1>User Details</h1>
+                <section className="admin-user-card">
+                    <h2>Account Information</h2>
 
-            <div>
-                <p>
-                <strong>Name:</strong> {user.name}
-                </p>
+                    <div className="admin-user-info">
+                        <div>
+                            <span>Name</span>
+                            <strong>{user.name}</strong>
+                        </div>
 
-                <p>
-                <strong>Email:</strong> {user.email}
-                </p>
+                        <div>
+                            <span>Email</span>
+                            <strong>{user.email}</strong>
+                        </div>
 
-                <p>
-                <strong>Address:</strong> {user.address}
-                </p>
+                        <div>
+                            <span>Address</span>
+                            <strong>{user.address}</strong>
+                        </div>
 
-                <p>
-                <strong>Role:</strong> {user.role}
-                </p>
+                        <div>
+                            <span>Role</span>
+                            <strong className="admin-user-role">
+                                {user.role}
+                            </strong>
+                        </div>
+                    </div>
+                </section>
+
+                {user.role === "owner" && (
+                    <section className="admin-user-card">
+                        <h2>Store Information</h2>
+
+                        {user.stores && user.stores.length > 0 ? (
+                            <div className="admin-user-table-wrapper">
+                                <table className="admin-user-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Store</th>
+                                            <th>Email</th>
+                                            <th>Address</th>
+                                            <th>Rating</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        {user.stores.map((store) => (
+                                            <tr key={store.id}>
+                                                <td>{store.name}</td>
+                                                <td>{store.email}</td>
+                                                <td>{store.address}</td>
+                                                <td>
+                                                    {store.average_rating ??
+                                                        "No ratings"}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        ) : (
+                            <p className="admin-user-empty">
+                                This owner has no stores.
+                            </p>
+                        )}
+                    </section>
+                )}
             </div>
-
-        {user.role === "owner" && (
-            <div>
-            <h2>Store Information</h2>
-
-            {user.stores && user.stores.length > 0 ? (
-            <table>
-
-                <thead>
-
-                    <tr>
-                        <th>Store</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th>Rating</th>
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    {user.stores.map((store) => (
-
-                        <tr key={store.id}>
-
-                            <td>{store.name}</td>
-                            <td>{store.email}</td>
-                            <td>{store.address}</td>
-                            <td>
-                                {store.average_rating ?? "No ratings"}
-                            </td>
-
-                        </tr>
-
-                    ))}
-
-                </tbody>
-            </table>
-            ) : (
-                <p>This owner has no stores.</p>
-            )}
-            </div>
-        )}
-
-        <br />
-
-        <Link to="/admin/users">
-            Back to Users
-        </Link>
         </div>
     );
 };

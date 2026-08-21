@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import adminApi from "../../api/adminApi";
+import "./styles/CreateUser.css";
 
 const CreateUser = () => {
   const navigate = useNavigate();
@@ -32,21 +33,24 @@ const CreateUser = () => {
     setError("");
     setSuccess("");
 
-    if (!formData.name || !formData.email || !formData.password || !formData.address || !formData.role) 
-    {
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.password ||
+      !formData.address ||
+      !formData.role
+    ) {
       setError("All fields are required");
       return;
     }
 
-    try 
-    {
+    try {
       setLoading(true);
 
       const response = await adminApi.createUser(formData);
 
-      if(!response.success) 
-      {
-        setError( response.message || "Unable to create user" );
+      if (!response.success) {
+        setError(response.message || "Unable to create user");
         return;
       }
 
@@ -55,102 +59,110 @@ const CreateUser = () => {
       setTimeout(() => {
         navigate("/admin/users");
       }, 700);
-
-    } 
-    catch (error) 
-    {
+    } catch (error) {
       setError(
         error.response?.data?.message ||
           "Unable to create user"
       );
-    } 
-    finally 
-    {
+    } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div>
-      <h1>Create User</h1>
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Name</label>
-
-          <input
-            id="name"
-            name="name"
-            type="text"
-            value={formData.name}
-            onChange={handleChange}
-          />
+    <div className="create-user-page">
+      <div className="create-user-container">
+        <div className="create-user-header">
+          <p>Create User</p>
+          <h1>Create New User</h1>
+          <span>Add a new user to the application.</span>
         </div>
 
-        <div>
-          <label htmlFor="email">Email</label>
+        <form className="create-user-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="name">Name</label>
 
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-        </div>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </div>
 
-        <div>
-          <label htmlFor="password">Password</label>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
 
-          <input
-            id="password"
-            name="password"
-            type="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-        </div>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
 
-        <div>
-          <label htmlFor="address">Address</label>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
 
-          <textarea
-            id="address"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            rows="4"
-          />
-        </div>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+          </div>
 
-        <div>
-          <label htmlFor="role">Role</label>
+          <div className="form-group">
+            <label htmlFor="address">Address</label>
 
-          <select
-            id="role"
-            name="role"
-            value={formData.role}
-            onChange={handleChange}
+            <textarea
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              rows="4"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="role">Role</label>
+
+            <select
+              id="role"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+            >
+              <option value="user">Normal User</option>
+              <option value="owner">Store Owner</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+
+          {error && <p className="create-user-message error">{error}</p>}
+
+          {success && (
+            <p className="create-user-message success">
+              {success}
+            </p>
+          )}
+
+          <button
+            className="create-user-button"
+            type="submit"
+            disabled={loading}
           >
-            <option value="user">Normal User</option>
-            <option value="owner">Store Owner</option>
-            <option value="admin">Admin</option>
-          </select>
-        </div>
+            {loading ? "Creating..." : "Create User"}
+          </button>
+        </form>
 
-        {error && <p>{error}</p>}
-        {success && <p>{success}</p>}
-
-        <button type="submit" disabled={loading}>
-          {loading ? "Creating..." : "Create User"}
-        </button>
-      </form>
-
-      <br />
-
-      <Link to="/admin/users">
-        Back to Users
-      </Link>
+        <Link className="create-user-back-link" to="/admin/users">
+          Back to Users
+        </Link>
+      </div>
     </div>
   );
 };
