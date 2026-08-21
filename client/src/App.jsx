@@ -36,6 +36,8 @@ import Stores from "./pages/user/Stores";
 
 import StoreDetails from "./pages/user/StoreDetails";
 
+import RateStore from "./pages/user/RateStore";
+
 //get the protected route to verify from here
 import ProtectedRoute from "./routes/ProtectedRoute";
 
@@ -93,6 +95,8 @@ const App = () => {
             <Route path="/stores" element={<Stores />} />
 
             <Route path="/stores/:storeId" element={<StoreDetails />} />
+
+            <Route path="/stores/:storeId/rate" element={<RateStore />} />
 
           </Route>
 

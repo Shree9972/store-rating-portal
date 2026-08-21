@@ -16,13 +16,21 @@ const getStores = async ({ search, sortBy = "name", sortOrder = "ASC" } = {}) =>
 };
 
 const getStoreById = async (storeId) => {
+
   const response = await api.get(`/stores/${storeId}`);
 
   return response.data;
 };
 
+const getMyRating = async (storeId) => {
+  const response = await api.get(`/ratings/${storeId}/me`);
+
+  return response.data;
+};
+
 const submitRating = async (storeId, rating) => {
-  const response = await api.post(`/stores/${storeId}/ratings`, {
+
+  const response = await api.post(`/ratings/${storeId}`, {
     rating,
   });
 
@@ -30,7 +38,8 @@ const submitRating = async (storeId, rating) => {
 };
 
 const updateRating = async (storeId, rating) => {
-  const response = await api.patch(`/stores/${storeId}/ratings`, {
+
+  const response = await api.post(`/ratings/${storeId}`, {
     rating,
   });
 
@@ -42,6 +51,7 @@ const userApi = {
   getStoreById,
   submitRating,
   updateRating,
+  getMyRating,
 };
 
 export default userApi;
