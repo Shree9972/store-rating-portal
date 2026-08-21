@@ -1,0 +1,281 @@
+.stores-page {
+    min-height: 100vh;
+    padding: 40px 20px;
+    background: #f5f7fa;
+    color: #1f2937;
+    font-family: Arial, sans-serif;
+}
+
+.stores-container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* Header */
+
+.stores-header {
+    margin-bottom: 25px;
+}
+
+.stores-header p {
+    margin: 0 0 5px;
+    color: #2563eb;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.stores-header h1 {
+    margin: 0;
+    font-size: 34px;
+}
+
+.stores-header span {
+    display: block;
+    margin-top: 8px;
+    color: #667085;
+}
+
+/* Controls */
+
+.stores-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding: 18px;
+    background: white;
+    border: 1px solid #e4e7ec;
+    border-radius: 8px;
+}
+
+.stores-controls form {
+    display: flex;
+    flex: 1;
+    gap: 8px;
+}
+
+.stores-controls input,
+.stores-controls select,
+.stores-controls button {
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid #d0d5dd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.stores-controls input {
+    width: 100%;
+}
+
+.stores-controls button {
+    background: white;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.stores-controls form button {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: white;
+}
+
+.stores-controls button:hover {
+    background: #f2f4f7;
+}
+
+.stores-controls form button:hover {
+    background: #1d4ed8;
+}
+
+.stores-controls button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.stores-controls input:focus,
+.stores-controls select:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.sort-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sort-controls label {
+    color: #667085;
+    font-size: 13px;
+}
+
+/* Messages */
+
+.message,
+.empty {
+    padding: 20px;
+    background: white;
+    border: 1px solid #e4e7ec;
+    border-radius: 8px;
+}
+
+.message {
+    color: #2563eb;
+}
+
+.message.error {
+    color: #b42318;
+    background: #fef2f2;
+    border-color: #fecaca;
+}
+
+.empty {
+    text-align: center;
+}
+
+.empty h2 {
+    margin: 0;
+}
+
+.empty p {
+    margin: 8px 0 0;
+    color: #667085;
+}
+
+/* Results */
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.results-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.results-header span {
+    color: #2563eb;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Store Cards */
+
+.stores-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.store-card {
+    background: white;
+    border: 1px solid #e4e7ec;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.store-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px;
+}
+
+.store-title h3 {
+    margin: 0;
+    font-size: 17px;
+}
+
+.avatar {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eaf1ff;
+    border-radius: 8px;
+    color: #2563eb;
+    font-weight: 700;
+}
+
+.address {
+    margin: 0;
+    padding: 0 20px 18px;
+    color: #667085;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.rating {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-top: 1px solid #eee;
+}
+
+.rating strong,
+.rating span {
+    display: block;
+}
+
+.rating strong {
+    font-size: 14px;
+}
+
+.rating span {
+    margin-top: 3px;
+    color: #98a2b3;
+    font-size: 11px;
+}
+
+.rating > div:last-child {
+    text-align: right;
+}
+
+.view-link {
+    display: block;
+    padding: 14px 20px;
+    border-top: 1px solid #eee;
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.view-link:hover {
+    background: #f8faff;
+}
+
+/* Responsive */
+
+@media (max-width: 700px) {
+    .stores-page {
+        padding: 25px 15px;
+    }
+
+    .stores-controls {
+        flex-direction: column;
+    }
+
+    .stores-controls form,
+    .sort-controls {
+        width: 100%;
+    }
+
+    .stores-controls button,
+    .stores-controls select {
+        width: 100%;
+    }
+
+    .sort-controls {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .stores-grid {
+        grid-template-columns: 1fr;
+    }
+}

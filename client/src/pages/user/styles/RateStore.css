@@ -1,0 +1,165 @@
+.rate-store-page {
+    min-height: 100vh;
+    padding: 40px 20px;
+    background: #f5f7fa;
+    color: #1f2937;
+    font-family: Arial, sans-serif;
+}
+
+.rate-store-card {
+    max-width: 550px;
+    margin: 30px auto;
+    padding: 30px;
+    background: white;
+    border: 1px solid #e4e7ec;
+    border-radius: 8px;
+}
+
+.rate-store-back {
+    color: #2563eb;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.rate-store-header {
+    margin: 25px 0;
+}
+
+.rate-store-header p {
+    margin: 0 0 5px;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.rate-store-header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.rate-store-header h2 {
+    margin: 8px 0 0;
+    color: #667085;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.current-rating {
+    margin-bottom: 20px;
+    padding: 12px;
+    background: #f8faff;
+    border: 1px solid #eaf1ff;
+    border-radius: 6px;
+    color: #475467;
+    font-size: 14px;
+}
+
+.rate-store-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.rate-store-card label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.rate-store-card select {
+    height: 44px;
+    padding: 0 12px;
+    border: 1px solid #d0d5dd;
+    border-radius: 6px;
+    background: white;
+    font-size: 14px;
+}
+
+.rate-store-card select:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.rate-store-card button {
+    height: 44px;
+    margin-top: 8px;
+    border: 0;
+    border-radius: 6px;
+    background: #2563eb;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.rate-store-card button:hover {
+    background: #1d4ed8;
+}
+
+.rate-store-card button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.rate-store-error {
+    margin: 5px 0;
+    color: #b42318;
+    font-size: 14px;
+}
+
+.cancel-link {
+    display: block;
+    margin-top: 18px;
+    color: #667085;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.cancel-link:hover,
+.rate-store-back:hover {
+    color: #1d4ed8;
+}
+
+.rate-store-message {
+    max-width: 550px;
+    margin: 60px auto;
+    padding: 30px;
+    background: white;
+    border: 1px solid #e4e7ec;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.rate-store-message h1 {
+    margin: 0 0 10px;
+    font-size: 22px;
+}
+
+.rate-store-message p {
+    margin: 0 0 20px;
+    color: #667085;
+}
+
+.rate-store-message a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.rate-store-message.error {
+    border-color: #fecaca;
+}
+
+.rate-store-message.error h1 {
+    color: #b42318;
+}
+
+@media (max-width: 600px) {
+    .rate-store-page {
+        padding: 25px 15px;
+    }
+
+    .rate-store-card {
+        margin: 15px auto;
+        padding: 22px;
+    }
+}

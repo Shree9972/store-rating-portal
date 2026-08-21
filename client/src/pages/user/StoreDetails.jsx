@@ -2,147 +2,194 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import userApi from "../../api/userApi";
+import "./styles/StoreDetails.css";
 
 const StoreDetails = () => {
-  const { storeId } = useParams();
+    const { storeId } = useParams();
 
-  const [store, setStore] = useState(null);
-  const [myRating, setMyRating] = useState(null);
+    const [store, setStore] = useState(null);
+    const [myRating, setMyRating] = useState(null);
 
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
-  useEffect(() => {
-    const loadStore = async () => {
-      try {
-        setLoading(true);
-        setError("");
+    useEffect(() => {
+        const loadStore = async () => {
+            try {
+                setLoading(true);
+                setError("");
 
-        const response = await userApi.getStoreById(storeId);
+                const response = await userApi.getStoreById(storeId);
 
-        if(response.success) 
-        {
-          const storeData = response.data?.store;
+                if (response.success) {
+                    const storeData = response.data?.store;
 
-          setStore(storeData);
-          setMyRating(storeData?.userRating || null);
+                    setStore(storeData);
+                    setMyRating(storeData?.userRating || null);
+                } else {
+                    setError(response.message || "Unable to load store");
+                }
+            } catch (error) {
+                setError(
+                    error.response?.data?.message ||
+                        "Unable to load store"
+                );
+            } finally {
+                setLoading(false);
+            }
+        };
 
-        } 
-        else 
-        {
-          setError( response.message || "Unable to load store" );
-        }
-      } 
-      catch (error) 
-      {
-        setError(
-          error.response?.data?.message ||
-            "Unable to load store"
+        loadStore();
+    }, [storeId]);
+
+    if (loading) {
+        return (
+            <div className="store-details-page">
+                <div className="store-message" role="status">
+                    Loading store...
+                </div>
+            </div>
         );
-      } 
-      finally 
-      {
-        setLoading(false);
-      }
-    };
+    }
 
-    loadStore();
-  }, [storeId]);
+    if (error) {
+        return (
+            <div className="store-details-page">
+                <div className="store-message error" role="alert">
+                    <h1>Unable to load store</h1>
+                    <p>{error}</p>
 
-  if (loading) {
-    return <p>Loading store...</p>;
-  }
+                    <Link className="store-button" to="/stores">
+                        ← Back to Stores
+                    </Link>
+                </div>
+            </div>
+        );
+    }
 
-  if (error) {
+    if (!store) {
+        return (
+            <div className="store-details-page">
+                <div className="store-message">
+                    <h1>Store not found</h1>
+                    <p>
+                        The store you are looking for could not be found.
+                    </p>
+
+                    <Link className="store-button" to="/stores">
+                        ← Back to Stores
+                    </Link>
+                </div>
+            </div>
+        );
+    }
+
+    const averageRating = store.ratingSummary?.averageRating ?? 0;
+    const totalRatings = store.ratingSummary?.totalRatings ?? 0;
+
     return (
-      <div>
-        <p>{error}</p>
+        <div className="store-details-page">
+            <div className="store-details-container">
+                <Link className="back-link" to="/stores">
+                    ← Back to Stores
+                </Link>
 
-        <Link to="/stores">
-          Back to Stores
-        </Link>
-      </div>
-    );
-  }
+                <section className="store-header">
+                    <div className="store-title">
+                        <div className="avatar">
+                            {store.name?.charAt(0)?.toUpperCase() || "S"}
+                        </div>
 
-  if (!store) {
-    return (
-      <div>
-        <p>Store not found.</p>
+                        <div>
+                            <p>Store Details</p>
+                            <h1>{store.name}</h1>
+                            <span>
+                                View store information and manage your rating.
+                            </span>
+                        </div>
+                    </div>
 
-        <Link to="/stores">
-          Back to Stores
-        </Link>
-      </div>
-    );
-  }
+                    <div className="rating-summary">
+                        <strong>
+                            {totalRatings > 0 ? `★ ${averageRating}` : "—"}
+                        </strong>
+                        <span>
+                            {totalRatings > 0
+                                ? `${totalRatings} ${
+                                      totalRatings === 1
+                                          ? "rating"
+                                          : "ratings"
+                                  }`
+                                : "No ratings yet"}
+                        </span>
+                    </div>
+                </section>
 
-  const averageRating = store.ratingSummary?.averageRating ?? 0;
+                <div className="details-grid">
+                    <section className="details-card">
+                        <p>Information</p>
+                        <h2>Store Information</h2>
 
-  const totalRatings = store.ratingSummary?.totalRatings ?? 0;
+                        <div className="info">
+                            <div>
+                                <span>Email</span>
+                                <strong>{store.email}</strong>
+                            </div>
 
-  return (
-    <div>
-      <h1>{store.name}</h1>
+                            <div>
+                                <span>Owner</span>
+                                <strong>{store.owner_name}</strong>
+                            </div>
 
-      <p>
-        <strong>Email:</strong> {store.email}
-      </p>
+                            <div>
+                                <span>Address</span>
+                                <strong>{store.address}</strong>
+                            </div>
+                        </div>
+                    </section>
 
-      <p>
-        <strong>Address:</strong> {store.address}
-      </p>
+                    <section className="details-card">
+                        <p>Your feedback</p>
+                        <h2>My Rating</h2>
 
-      <p>
-        <strong>Owner:</strong> {store.owner_name}
-      </p>
+                        {myRating ? (
+                            <div className="rating-content">
+                                <h3>Your rating: {myRating.rating}/5</h3>
 
-      <p>
-        <strong>Average Rating:</strong>{" "}
-        {totalRatings > 0
-          ? averageRating
-          : "No ratings yet"}
-      </p>
+                                <p>
+                                    You rated this store{" "}
+                                    <strong>{myRating.rating}/5</strong>.
+                                </p>
 
-      <p>
-        <strong>Total Ratings:</strong>{" "}
-        {totalRatings}
-      </p>
+                                <Link
+                                    className="store-button"
+                                    to={`/stores/${store.id}/rate`}
+                                >
+                                    Update Rating →
+                                </Link>
+                            </div>
+                        ) : (
+                            <div className="rating-content">
+                                <h3>Share your experience</h3>
 
-      <hr />
+                                <p>
+                                    You have not rated this store yet. Your
+                                    rating helps provide useful feedback.
+                                </p>
 
-      <h2>My Rating</h2>
-
-      {myRating ? (
-        <div>
-          <p>
-            You rated this store:{" "}
-            <strong>{myRating.rating}/5</strong>
-          </p>
-
-          <Link to={`/stores/${store.id}/rate`}>
-            Update Rating
-          </Link>
+                                <Link
+                                    className="store-button"
+                                    to={`/stores/${store.id}/rate`}
+                                >
+                                    Rate This Store →
+                                </Link>
+                            </div>
+                        )}
+                    </section>
+                </div>
+            </div>
         </div>
-      ) : (
-        <div>
-          <p>
-            You have not rated this store yet.
-          </p>
-
-          <Link to={`/stores/${store.id}/rate`}>
-            Rate This Store
-          </Link>
-        </div>
-      )}
-
-      <br />
-
-      <Link to="/stores">
-        Back to Stores
-      </Link>
-    </div>
-  );
+    );
 };
 
 export default StoreDetails;
