@@ -60,7 +60,7 @@ const getMyRatingController = async (req, res) => {
 const getStoreRatingsController = async (req, res) => {
 
     try {
-        const ratings = await ratingService.getStoreRatings(req.params.storeId);
+        const ratings = await ratingService.getStoreRatings(req.params.storeId, req.user.id);
 
         return res.status(200).json({
             success: true,
