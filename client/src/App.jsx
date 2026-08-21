@@ -5,6 +5,7 @@ import { AuthProvider } from "./context/AuthContext";
 
 //get pages here (for all)
 import Login from "./pages/Login";
+
 import Register from "./pages/Register";
 
 //change password (for all)
@@ -12,6 +13,8 @@ import ChangePassword from "./pages/ChangePassword";
 
 //commone navbar for all 
 import Navbar from "./components/Navbar";
+
+
 
 //admin pages and admin functionality here
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -25,6 +28,13 @@ import CreateUser from "./pages/admin/CreateUser";
 import AdminStores from "./pages/admin/AdminStores";
 
 import CreateStore from "./pages/admin/CreateStore";
+
+
+
+
+import Stores from "./pages/user/Stores";
+
+import StoreDetails from "./pages/user/StoreDetails";
 
 //get the protected route to verify from here
 import ProtectedRoute from "./routes/ProtectedRoute";
@@ -80,7 +90,9 @@ const App = () => {
 
           <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
 
-            <Route  path="/stores" element={<div>Store Listing</div>} />
+            <Route path="/stores" element={<Stores />} />
+
+            <Route path="/stores/:storeId" element={<StoreDetails />} />
 
           </Route>
 
