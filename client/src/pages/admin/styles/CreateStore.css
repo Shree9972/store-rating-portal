@@ -1,0 +1,158 @@
+.create-store-page {
+    min-height: 100vh;
+    padding: 40px 20px;
+    background: #f5f7fa;
+    color: #1f2937;
+    font-family: Arial, sans-serif;
+}
+
+.create-store-container {
+    max-width: 700px;
+    margin: auto;
+}
+
+/* Header */
+
+.create-store-back {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.create-store-back:hover {
+    text-decoration: underline;
+}
+
+.create-store-header {
+    margin-bottom: 25px;
+}
+
+.create-store-header p {
+    margin: 0 0 5px;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.create-store-header h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.create-store-header span {
+    display: block;
+    margin-top: 7px;
+    color: #667085;
+    font-size: 14px;
+}
+
+/* Form */
+
+.create-store-card {
+    padding: 25px;
+    background: white;
+    border: 1px solid #e4e7ec;
+    border-radius: 8px;
+}
+
+.create-store-field {
+    margin-bottom: 18px;
+}
+
+.create-store-field label {
+    display: block;
+    margin-bottom: 7px;
+    color: #344054;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.create-store-field input,
+.create-store-field textarea,
+.create-store-field select {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d0d5dd;
+    border-radius: 6px;
+    background: white;
+    color: #1f2937;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.create-store-field textarea {
+    resize: vertical;
+}
+
+.create-store-field input:focus,
+.create-store-field textarea:focus,
+.create-store-field select:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.create-store-loading {
+    margin: 0;
+    color: #667085;
+    font-size: 14px;
+}
+
+/* Messages */
+
+.create-store-message {
+    margin-bottom: 18px;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.create-store-message.error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b42318;
+}
+
+.create-store-message.success {
+    background: #ecfdf3;
+    border: 1px solid #abefc6;
+    color: #027a48;
+}
+
+/* Button */
+
+.create-store-submit {
+    width: 100%;
+    padding: 11px 15px;
+    border: 0;
+    border-radius: 6px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.create-store-submit:hover {
+    background: #1d4ed8;
+}
+
+.create-store-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    .create-store-page {
+        padding: 25px 15px;
+    }
+
+    .create-store-card {
+        padding: 20px;
+    }
+}

@@ -1,0 +1,147 @@
+.create-user-page {
+    min-height: 100vh;
+    padding: 40px 20px;
+    background: #f5f7fa;
+    color: #1f2937;
+    font-family: Arial, sans-serif;
+}
+
+.create-user-container {
+    max-width: 650px;
+    margin: auto;
+}
+
+.create-user-header {
+    margin-bottom: 25px;
+}
+
+.create-user-header p {
+    margin: 0 0 5px;
+    color: #2563eb;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.create-user-header h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.create-user-header span {
+    display: block;
+    margin-top: 8px;
+    color: #667085;
+    font-size: 15px;
+}
+
+.create-user-form {
+    padding: 25px;
+    background: white;
+    border: 1px solid #e4e7ec;
+    border-radius: 10px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    color: #344054;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d0d5dd;
+    border-radius: 6px;
+    background: white;
+    color: #1f2937;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.create-user-button {
+    width: 100%;
+    padding: 11px 15px;
+    border: 1px solid #2563eb;
+    border-radius: 6px;
+    background: #2563eb;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.create-user-button:hover {
+    background: #1d4ed8;
+}
+
+.create-user-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.create-user-message {
+    margin: 5px 0 18px;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.create-user-message.error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b42318;
+}
+
+.create-user-message.success {
+    background: #ecfdf3;
+    border: 1px solid #abefc6;
+    color: #067647;
+}
+
+.create-user-back-link {
+    display: inline-block;
+    margin-top: 18px;
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.create-user-back-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 550px) {
+    .create-user-page {
+        padding: 25px 15px;
+    }
+
+    .create-user-form {
+        padding: 20px;
+    }
+
+    .create-user-header h1 {
+        font-size: 26px;
+    }
+}
