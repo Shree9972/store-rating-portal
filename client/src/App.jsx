@@ -22,6 +22,10 @@ import AdminUserDetails from "./pages/admin/AdminUserDetails";
 
 import CreateUser from "./pages/admin/CreateUser";
 
+import AdminStores from "./pages/admin/AdminStores";
+
+import CreateStore from "./pages/admin/CreateStore";
+
 //get the protected route to verify from here
 import ProtectedRoute from "./routes/ProtectedRoute";
 
@@ -63,6 +67,10 @@ const App = () => {
             <Route path="/admin/users/:userId" element={<AdminUserDetails />} />
 
             <Route path="/admin/users/create" element={<CreateUser />} />
+
+            <Route path="/admin/stores" element={<AdminStores />} />
+
+            <Route path="/admin/stores/create" element={<CreateStore />} />
 
           </Route>
 
