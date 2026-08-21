@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { loginUser, getCurrentUser } from "../api/authApi";
+import { loginUser, getCurrentUser, changePassword as changePasswordApi } from "../api/authApi";
 
 const AuthContext = createContext(null);
 
@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }) => {
 
     const changePassword = async (passwordData) => {
 
-        return await authApi.changePassword(passwordData);
+        return await changePasswordApi(passwordData);
 
     };
 
