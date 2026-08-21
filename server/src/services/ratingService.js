@@ -53,34 +53,33 @@ const getUserRating = async ({ userId, storeId }) => {
     return ratings[0];
 };
 
-//get the stors rating  from this with user-id as well in dscein sorted
-//this si used by owner to see how his store is being rated by everyone 
-const getStoreRatings = async (storeId) => {
 
-    // if store not exist then send error 
+//this si used by owner to see how his store is being rated by everyone 
+//this endpoing is going to be used in owner dashboard there
+const getStoreRatings = async (storeId, ownerId) => {
     const [stores] = await db.query(
-        `SELECT id FROM stores WHERE id = ?`,
-        [storeId]
+        "SELECT id FROM stores WHERE id = ? AND owner_id = ?",
+        [storeId, ownerId]
     );
 
-    if(stores.length === 0) 
-    {
-        const error = new Error("Store not found");
-        error.statusCode = 404;
+    if (!stores.length) {
+        const error = new Error("Store not found or you do not have access to this store");
+        error.statusCode = 403;
         throw error;
     }
 
-    // get rating for for prarticualr stre ehre
     const [ratings] = await db.query(
-        `SELECT r.id, r.rating, r.created_at, r.updated_at, u.id AS user_id, u.name AS user_name 
-        FROM ratings r INNER JOIN users u 
-        ON r.user_id = u.id WHERE r.store_id = ? ORDER BY r.created_at DESC`,
+        `SELECT r.id, r.rating, r.created_at, r.updated_at,
+                u.id AS user_id, u.name AS user_name
+        FROM ratings r
+        INNER JOIN users u ON r.user_id = u.id
+        WHERE r.store_id = ?
+        ORDER BY r.created_at DESC`,
         [storeId]
     );
 
-    return ratings;
+  return ratings;
 };
-
 //get the average rating of stores here 
 //make this requeist in real time so to get udpted aratings here with averga eto calculate 
 const getStoreRatingSummary = async (storeId) => {

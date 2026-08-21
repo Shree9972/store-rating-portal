@@ -9,9 +9,9 @@ const router = express.Router();
 
 router.post("/:storeId", authenticate, authorize("user"), createRatingValidation, validateRequest, createOrUpdateRatingController);
 
-router.get("/:storeId/me", authenticate, storeIdValidation, validateRequest, getMyRatingController);
+router.get("/:storeId/me", authenticate, authorize("user"), storeIdValidation, validateRequest, getMyRatingController);
 
-router.get("/:storeId", authenticate, storeIdValidation, validateRequest, getStoreRatingsController);
+router.get("/:storeId", authenticate, authorize("owner"), storeIdValidation, validateRequest, getStoreRatingsController);
 
 router.get("/:storeId/summary", authenticate, storeIdValidation, validateRequest, getStoreRatingSummaryController);
 

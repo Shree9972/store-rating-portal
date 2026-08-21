@@ -30,6 +30,7 @@ import AdminStores from "./pages/admin/AdminStores";
 import CreateStore from "./pages/admin/CreateStore";
 
 
+import OwnerDashboard from "./pages/owner/OwnerDashboard";
 
 
 import Stores from "./pages/user/Stores";
@@ -87,7 +88,9 @@ const App = () => {
           </Route>
 
           <Route element={<ProtectedRoute allowedRoles={["owner"]} />}>
-            <Route path="/owner/dashboard" element={<div>Owner Dashboard</div>} />
+
+            <Route path="/owner/dashboard" element={<OwnerDashboard />} />
+            
           </Route>
 
           <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
