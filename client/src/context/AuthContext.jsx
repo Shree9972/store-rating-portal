@@ -65,9 +65,15 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
+    const changePassword = async (passwordData) => {
+
+        return await authApi.changePassword(passwordData);
+
+    };
+
     return (
 
-        <AuthContext.Provider value={{ user, loading, login, logout, isAuthenticated: Boolean(user) }}>
+        <AuthContext.Provider value={{ user, loading, login, logout, isAuthenticated: Boolean(user),changePassword}}>
             {children}
         </AuthContext.Provider>
 

@@ -3,9 +3,28 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 //get context info here
 import { AuthProvider } from "./context/AuthContext";
 
-//get pages here
+//get pages here (for all)
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+
+//change password (for all)
+import ChangePassword from "./pages/ChangePassword";
+
+//commone navbar for all 
+import Navbar from "./components/Navbar";
+
+//admin pages and admin functionality here
+import AdminDashboard from "./pages/admin/AdminDashboard";
+
+import AdminUsers from "./pages/admin/AdminUsers";
+
+import AdminUserDetails from "./pages/admin/AdminUserDetails";
+
+import CreateUser from "./pages/admin/CreateUser";
+
+import AdminStores from "./pages/admin/AdminStores";
+
+import CreateStore from "./pages/admin/CreateStore";
 
 //get the protected route to verify from here
 import ProtectedRoute from "./routes/ProtectedRoute";
@@ -13,8 +32,11 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 const Unauthorized = () => (
 
   <div>
-    <h1>403</h1>
-    <p>You do not have permission to access this page.</p>
+
+      <h1>403</h1>
+
+      <p>You do not have permission to access this page.</p>
+
   </div>
 
 );
@@ -27,6 +49,8 @@ const App = () => {
 
       <AuthProvider>
 
+        <Navbar />
+
         <Routes>
 
           <Route path="/login" element={<Login />} />
@@ -35,7 +59,19 @@ const App = () => {
           <Route path="/unauthorized" element={<Unauthorized />} />
 
           <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
-            <Route path="/admin/dashboard" element={<div>Admin Dashboard</div>} />
+
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+            <Route path="/admin/users" element={<AdminUsers />} />
+
+            <Route path="/admin/users/:userId" element={<AdminUserDetails />} />
+
+            <Route path="/admin/users/create" element={<CreateUser />} />
+
+            <Route path="/admin/stores" element={<AdminStores />} />
+
+            <Route path="/admin/stores/create" element={<CreateStore />} />
+
           </Route>
 
           <Route element={<ProtectedRoute allowedRoles={["owner"]} />}>
@@ -45,6 +81,12 @@ const App = () => {
           <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
 
             <Route  path="/stores" element={<div>Store Listing</div>} />
+
+          </Route>
+
+          <Route element={<ProtectedRoute allowedRoles={["admin", "owner", "user"]} />}>
+
+            <Route path="/change-password" element={<ChangePassword />} />
 
           </Route>
 
